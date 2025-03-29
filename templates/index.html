@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 40px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .link-button {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .link-button:hover {
+            background-color: #0056b3;
+        }
+
+        .user-info {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        .auth-links {
+            margin-top: 20px;
+        }
+
+        .auth-links a {
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .signup {
+            background-color: green;
+            color: white;
+        }
+
+        .signin {
+            background-color: orange;
+            color: white;
+        }
+
+        .logout {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hey Admin Revathi</h1>
+
+    <div class="container">
+        <a href="/teachers" class="link-button">View Teachers (Admin Access)</a>
+        <a href="/staff" class="link-button">View All Staff (Admin, Teacher Access)</a>
+        <a href="/students" class="link-button">View All Students (Admin, Teacher, Staff Access)</a>
+        <a href="/mydetails" class="link-button">View My Details (All Users)</a>
+
+        {% if current_user.is_authenticated %}
+            <div class="user-info">
+                <p><b>Current User:</b> {{ current_user.email }}</p>
+                <p><b>Role:</b> 
+                    {% for role in current_user.roles %}
+                        {{ role.name }}
+                    {% endfor %}
+                </p>
+                <a href="/logout" class="logout">Logout</a>
+            </div>
+        {% else %}
+            <div class="auth-links">
+                <a href="/signup" class="signup">Sign Up</a>
+                <a href="/signin" class="signin">Sign In</a>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
